@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta charset="UTF-8">
+  <meta name="description" content="The personal site of Nicholas Griffin, the founder of TechNutty">
+  <meta name="keywords" content="web developer,blogger,technology,founder,TechNutty">
+  <meta name="author" content="Nicholas Griffin">
+  <title>Serverless Analytics - Website | Nicholas Griffin</title>
+  <link rel="apple-touch-icon" sizes="57x57" href="/icons/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/icons/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/icons/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/icons/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/icons/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/icons/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/icons/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/icons/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon-180x180.png">
+  <link rel="icon" type="image/png" href="/icons/favicon-32x32.png" sizes="32x32">
+  <link rel="icon" type="image/png" href="/icons/android-chrome-192x192.png" sizes="192x192">
+  <link rel="icon" type="image/png" href="/icons/favicon-96x96.png" sizes="96x96">
+  <link rel="icon" type="image/png" href="/icons/favicon-16x16.png" sizes="16x16">
+  <link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="apple-mobile-web-app-title" content="Nicholas Griffin">
+  <meta name="application-name" content="Nicholas Griffin">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-TileImage" content="/icons/mstile-144x144.png">
+  <meta name="msapplication-config" content="/icons/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="shortcut icon" href="/favicon.ico">
+</head>
+
+<body>
+  <h1>Hey! You just pushed a pageview!</h1>
+
+  <div style="width:100%;height:0;padding-bottom:56%;position:relative;"><iframe
+      src="https://giphy.com/embed/l0MYt5jPR6QX5pnqM" width="100%" height="100%" style="position:absolute"
+      frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div>
+  <p><a href="https://giphy.com/gifs/party-the-office-hard-l0MYt5jPR6QX5pnqM">via GIPHY</a></p>
+
+  <script>
+    fetch(
+      '<%=TrackingRootURL%>/<%=TrackingStageName%>/<%=TrackingResource%>',
+      {
+        method: "POST",
+        body: JSON.stringify(
+          {
+            date: new Date().getTime(),
+            name: document.title,
+            url: location.href,
+            website: '<%=WebsiteID%>'
+          }
+        ),
+        headers: new Headers(
+          {
+            "Content-Type": "application/json"
+          }
+        )
+      }
+    )
+  </script>
+</body>
