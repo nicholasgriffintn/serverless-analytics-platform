@@ -37,6 +37,19 @@
   <h1>Welcome to the analytics dashboard</h1>
   <div class="loader">Loading...</div>
   <div id="container">
+      <div id="dataTitle_testing">
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Resource</th>
+            <th>Count</th>
+          </tr>
+        </thead>
+        <tbody id="data_pageview"></tbody>
+      </table>
+      <div id="dataTitle_pageview">
+        </div>
     <table>
       <thead>
         <tr>
@@ -44,26 +57,37 @@
           <th>Count</th>
         </tr>
       </thead>
-      <tbody id="data"></tbody>
+      <tbody id="data_testing"></tbody>
     </table>
   </div>
   <script>
-    function render(data) {
-      const rows = data.map(
-        item => '<tr><td><strong>' + item.name + '</strong><br />' + item.url + '</td><td>' + item.value + '</td></tr>'
-      )
+    function render(data, eventtype) {
+    const rows = data.map(
+      item => '<tr><td><strong>' + item.name + '</strong<span> - ' + item.eventtype + '</span><br />' + item.url + '</td><td>' + item.value + '</td></tr>'
+    )
 
-      document.querySelector('.loader').style.display = 'none'
-      document.querySelector('#data').innerHTML = rows.join('')
-      document.querySelector('#container').classList.add('show')
-    }
+    const dataTitleHTML = '<h1>Analytics from ' + (new Date()).getFullYear() + ' for the event type: ' + eventtype + '</h1>';
+
+    document.querySelector('.loader').style.display = 'none'
+    document.querySelector('#data_' + eventtype).innerHTML = rows.join('')
+    document.querySelector('#dataTitle_' + eventtype).innerHTML = dataTitleHTML
+    document.querySelector('#container').classList.add('show')
+  }
 
     fetch(
-      `<%=APIRootURL%>/<%=APIStageName%>/ranking?website=<%=WebsiteID%>&date=YEAR:${(new Date()).getFullYear()}`
+      `<%=APIRootURL%>/<%=APIStageName%>/ranking?website=<%=WebsiteID%>&eventtype=testing&date=YEAR:${(new Date()).getFullYear()}`
     ).then(
       res => res.json()
+    ).then(function (data) {
+      render(data, 'testing')
+    });
+
+    fetch(
+      `<%=APIRootURL%>/<%=APIStageName%>/ranking?website=<%=WebsiteID%>&eventtype=pageview&date=YEAR:${(new Date()).getFullYear()}`
     ).then(
-      render
-    )
+      res => res.json()
+    ).then(function (data) {
+      render(data, 'pageview')
+    });
   </script>
 </body>

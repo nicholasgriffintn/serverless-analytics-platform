@@ -30,8 +30,8 @@ function dimensions(timestamp: number): string[] {
 
 function update(data: EventData): Promise<any> {
   const name = data.name
-  const eventData = data.eventTest
-  const id = util.format('%s:%s', data.website, data.url)
+  const eventtype = data.eventtype || 'pageview'
+  const id = util.format('%s:%s:%s', data.website, eventtype, data.url)
 
   if (!data || !data.url) {
     return Promise.resolve()
@@ -43,11 +43,11 @@ function update(data: EventData): Promise<any> {
     ).map(
       (date: string) => ddb.update(
         {
-          ExpressionAttributeNames : { '#value': 'value', '#name': 'name' },
-          ExpressionAttributeValues: { ':inc': 1, ':name': name },
+          ExpressionAttributeNames : { '#value': 'value', '#eventtype': 'eventtype', '#name': 'name' },
+          ExpressionAttributeValues: { ':inc': 1, ':eventtype': eventtype, ':name': name },
           Key: { id, date },
           TableName,
-          UpdateExpression: 'ADD #value :inc SET #name = :name'
+          UpdateExpression: 'ADD #value :inc SET #name = :name, #eventtype = :eventtype'
         }
       ).promise()
     )

@@ -3,6 +3,7 @@ declare interface EventData {
   url: string
   date: number
   name: string
+  eventtype: string
 }
 
 declare interface DynamoDBItem {
@@ -10,6 +11,7 @@ declare interface DynamoDBItem {
   id: string
   name: string
   date: string
+  eventtype: string
 }
 
 declare interface KinesisItem {
@@ -25,6 +27,7 @@ declare interface KinesisEvent {
 declare interface LambdaHttpEvent {
   queryStringParameters: {
     website?: string
+    eventtype?: string
     date?: string
     url?: string
   }

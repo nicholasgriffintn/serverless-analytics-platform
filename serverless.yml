@@ -1,9 +1,10 @@
-service: filler-analytics
+service: vfiller-analytics
 
 plugins:
   - serverless-dynamodb-autoscaling
   - serverless-plugin-typescript
   - serverless-stack-output
+  - serverless-offline
 
 provider:
   name: aws
@@ -18,9 +19,7 @@ provider:
   environment:
     DYNAMODB_TABLE_NAME: ${self:custom.names.dynamodb}
 
-#serverless deploy --stage local
-#serverless deploy --stage production
-
+custom:
   stage: ${opt:stage, self:provider.stage}
   website: yfFbTv1GslRcIkUsWpa7 # Random ID
   names:

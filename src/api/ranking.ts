@@ -6,19 +6,22 @@ export function get(e: LambdaHttpEvent, c: any, cb: any): void {
   const query = e.queryStringParameters
 
   const website = query.website || ''
+  const eventtype = query.eventtype || ''
   const date = query.date || ''
 
   ddb.scan(
     {
       ExpressionAttributeNames: {
         '#date': 'date',
+        '#eventtype': 'eventtype',
         '#id': 'id'
       },
       ExpressionAttributeValues: {
         ':date': date,
+        ':eventtype': eventtype,
         ':website': website
       },
-      FilterExpression: 'begins_with(#id, :website) AND begins_with(#date, :date)',
+      FilterExpression: 'begins_with(#id, :website) AND begins_with(#date, :date) AND begins_with(#eventtype, :eventtype)',
       TableName: process.env.DYNAMODB_TABLE_NAME || ''
     }
   ).promise().then(
@@ -31,7 +34,8 @@ export function get(e: LambdaHttpEvent, c: any, cb: any): void {
     (list: DynamoDBItem[]) => list.map(
       (item: DynamoDBItem) => ({
         name: item.name,
-        url: item.id.split(':').slice(1).join(':'),
+        eventtype: item.eventtype,
+        url: item.id.split(':').slice(2).join(':'),
         value: parseInt(item.value, 10)
       })
     )
