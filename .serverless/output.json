@@ -1,0 +1,16 @@
+{
+  "WebsiteID": "yfFbTv1GslRcIkUsWpa7",
+  "BucketNameWebsite": "filler-analytics-website",
+  "TrackingStageName": "dev",
+  "APIRootURL": "https://ca77owrnu5.execute-api.eu-west-2.amazonaws.com",
+  "ServerlessDeploymentBucketName": "filler-analytics-dev-serverlessdeploymentbucket-s96bo1rgjye7",
+  "TrackingResource": "track",
+  "ProcessLambdaFunctionQualifiedArn": "arn:aws:lambda:eu-west-2:357987567464:function:filler-analytics-dev-process:1",
+  "SeriesLambdaFunctionQualifiedArn": "arn:aws:lambda:eu-west-2:357987567464:function:filler-analytics-dev-series:1",
+  "RankingLambdaFunctionQualifiedArn": "arn:aws:lambda:eu-west-2:357987567464:function:filler-analytics-dev-ranking:1",
+  "Region": "eu-west-2",
+  "TrackingRootURL": "https://r63ep7ch1g.execute-api.eu-west-2.amazonaws.com",
+  "BucketNameDashboard": "filler-analytics-dashboard",
+  "ServiceEndpoint": "https://ca77owrnu5.execute-api.eu-west-2.amazonaws.com/dev",
+  "APIStageName": "dev"
+}
