@@ -24,13 +24,7 @@
   "stabilityDays": 3,
   "supportPolicy": ["lts_latest"],
   "dependencyDashboardAutoclose": true,
-  "prHeader": "[JIRA: DATAFORCE-](https://jira.dev.bbc.co.uk/browse/DATAFORCE-)",
   "labels": ["dependencies"],
-  "postUpgradeTasks": {
-    "commands": ["format"],
-    "fileFilters": ["yarn.lock", "**/*.{ts,js,json,jsx,tsx,md,scss}"],
-    "executionMode": "update"
-  },
   "vulnerabilityAlerts": {
     "labels": ["security"]
   },
